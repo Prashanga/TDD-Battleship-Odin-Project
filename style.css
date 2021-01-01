@@ -1,0 +1,31 @@
+:root {
+  --board-dimension: 360px;
+  --box-dimension: calc(var(--board-dimension) / 10);
+
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    height: var(--board-dimension);
+    width: var(--board-dimension);
+    background-color: aliceblue;
+    margin: 20px;
+}
+.game-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.row {
+    display: flex;
+}
+.box {
+    height: var(--box-dimension);
+    width: var(--box-dimension);
+    border: 0.1px solid rgb(90, 85, 85);
+}

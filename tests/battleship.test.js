@@ -1,5 +1,6 @@
-const Ship = require('./Ship')
-const Gameboard = require('./Gameboard')
+const Ship = require('../src/Ship')
+const Gameboard = require('../src/Gameboard')
+const Player = require('../src/Player')
 
 let carrier
 let battleship
@@ -24,6 +25,9 @@ describe('ship is correct', () => {
     });
     test('battleship size is correct', () => {
         expect(battleship.getLength()).toBe(4);
+    }); 
+     test('destroyer size is correct', () => {
+        expect(destroyer.getLength()).toBe(3);
     }); 
      test('incorrect ship returns -101', () => {
         expect(incorrect.getLength()).toBe(-101);
@@ -83,6 +87,16 @@ describe('ship sinks correctly', () => {
         expect(submarine.isSunk()).toBe(true);
     });
 
+})
+
+describe('Player is created correctly', () => {
+    const player = Player(1, 'Test Player')
+    test('Player Number is correct', () => {
+        expect(player.getNumber()).toBe(1)
+    })
+    test('Player Name is correct', () => {
+        expect(player.getName()).toBe('Test Player')
+    })
 })
 
 describe('Gameboard is created correctly', () => {
