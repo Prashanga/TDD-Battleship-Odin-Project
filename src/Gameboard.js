@@ -1,6 +1,6 @@
 const Ship = require('./Ship')
 
-const Gameboard = (() => {
+const Gameboard = () => {
     
     let gameboard = [
             [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -137,7 +137,7 @@ const Gameboard = (() => {
         setPlayer,
         getPlayer
     }
-})()
+}
 
 module.exports = Gameboard
 
