@@ -8,6 +8,7 @@ const player1 = Player(1,'Player 1')
 const player2 = Player(2,'Computer')
 let currentPlayer
 let gameOver = false
+let winner = ''
 
 const fillSingleBox = (val, div, type) => {
     let stringVal = val.toString()
@@ -28,7 +29,7 @@ const fillSingleBox = (val, div, type) => {
 }
 
 const makePlayerMove = (event) => {
-    if(currentPlayer !== player1) return
+    if(currentPlayer !== player1 || gameOver) return
     const row = event.target.getAttribute('row')
     const column = event.target.getAttribute('column')
     const valueBeforeAttack = gameBoard1.getGameboard()[row][column]
@@ -41,6 +42,7 @@ const makePlayerMove = (event) => {
     else if(attack === 'hit') {
         fillSingleBox(valueBeforeAttack, event.target, 'hit')
     }
+    checkGameOver()
     if(!gameOver) {
         currentPlayer = player2
         makeComputerMove()  
@@ -49,28 +51,32 @@ const makePlayerMove = (event) => {
 
 
 const makeComputerMove = () => {
-    if(currentPlayer !== player2) return
-    let isLooping = true
+    const move = () => {    
+        if(currentPlayer !== player2 || gameOver) return
+        let isLooping = true
 
-    while(isLooping) {
-        let testY = Math.floor(Math.random() * 10)
-        let testX = Math.floor(Math.random() * 10)
-        let valueBeforeAttack = gameBoard2.getGameboard()[testX][testY]
-        if( valueBeforeAttack !== -23 && valueBeforeAttack !== -46 ){
-            let attack = gameBoard2.receiveAttack(testX, testY)
-            let boxDiv = document.getElementById(`gb2-r${testX}-c${testY}`)
-            if(attack === 'missed') {
-                fillSingleBox(valueBeforeAttack, boxDiv, 'miss')
+        while(isLooping) {
+            let testY = Math.floor(Math.random() * 10)
+            let testX = Math.floor(Math.random() * 10)
+            let valueBeforeAttack = gameBoard2.getGameboard()[testX][testY]
+            if( valueBeforeAttack !== -23 && valueBeforeAttack !== -46 ){
+                let attack = gameBoard2.receiveAttack(testX, testY)
+                let boxDiv = document.getElementById(`gb2-r${testX}-c${testY}`)
+                if(attack === 'missed') {
+                    fillSingleBox(valueBeforeAttack, boxDiv, 'miss')
+                }
+                else if(attack === 'hit') {
+                    fillSingleBox(valueBeforeAttack, boxDiv, 'hit')
+                }
+                isLooping = false
             }
-            else if(attack === 'hit') {
-                fillSingleBox(valueBeforeAttack, boxDiv, 'hit')
-            }
-            isLooping = false
         }
+        checkGameOver()
+        if(!gameOver) currentPlayer = player1
     }
-    if(!gameOver) currentPlayer = player1
+    
+    window.setTimeout(move, 00)
 }
-
 
 const createBoards = () => {
     const gameBoard1Div = document.getElementById('game-board-1')
@@ -92,8 +98,7 @@ const createBoards = () => {
                if(name === 'gb1') box.addEventListener('click', makePlayerMove)
                if(name === 'gb2') fillSingleBox(val, box, 'buildNew') // Fill the second board with boat colors at start
                row.appendChild(box)
-
-           }
+            }
         }
     }
 
@@ -102,8 +107,20 @@ const createBoards = () => {
 
 }
 
-const GamePlay = (() => {
+const checkGameOver = () => {
+    let gameboard
 
+    if(currentPlayer === player1) gameboard = gameBoard1
+    else if(currentPlayer === player2) gameboard = gameBoard2
+
+    if(gameboard.isAllShipSunk()) {
+        gameOver = true
+        winner = currentPlayer
+        console.log("WINNER: ", currentPlayer.getName())
+    }
+}
+
+const GamePlay = (() => {
     createBoards()
     gameBoard1.setPlayer(player1)
     gameBoard2.setPlayer(player2)
@@ -111,9 +128,7 @@ const GamePlay = (() => {
     if(Math.random() < 0.5) currentPlayer = player1
     else currentPlayer = player2
     console.log(currentPlayer.getName())
-
     if(currentPlayer === player2) makeComputerMove()
-
 })()
 
 module.exports = GamePlay
