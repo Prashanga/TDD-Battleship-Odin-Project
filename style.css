@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+.box-hit-x {
+  opacity: 0.5;
+}
+
+.box-miss-o {
+  opacity: 0.7;
+  background-color:#a7a7a7 !important;
+}
+
 .game-board {
   display: flex;
   flex-direction: column;
@@ -32,9 +41,4 @@
   border: 0.1px solid rgb(167, 162, 162);
   text-align: center;
   font-size: 1.5rem;
-}
-
-.box-hit-x {
-  /* color: #e72f0a; */
-  opacity: 0.6;
 }

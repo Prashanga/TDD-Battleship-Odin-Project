@@ -1,19 +1,19 @@
 const Ship = require('./Ship')
 
 const Gameboard = () => {
-    
+
     let gameboard = [
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-        ]
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    ]
 
     let carrier = Ship('carrier')
     let battleship = Ship('battleship')
@@ -22,13 +22,13 @@ const Gameboard = () => {
     let submarine2 = Ship('submarine')
     let patrolboat1 = Ship('patrolboat')
     let patrolboat2 = Ship('patrolboat')
-    
+
     let player
     let ships = [carrier, battleship, destroyer, submarine1, submarine2, patrolboat1, patrolboat2]
 
     const setPlayer = (player) => player = player
     const getPlayer = () => player
-    
+
     const assignPosition = (ship,index) => {
         const direction = Math.random() 
         let xPosition
@@ -108,7 +108,6 @@ const Gameboard = () => {
 
     const getGameboard = () => gameboard
 
-
     const receiveAttack = (x,y) => {
         // -23 --> ship hit and -46 --> hit missed
         if(gameboard[x][y] === -23 || gameboard[x][y] === -46) return 'occupied'
@@ -140,4 +139,3 @@ const Gameboard = () => {
 }
 
 module.exports = Gameboard
-
