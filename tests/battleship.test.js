@@ -16,7 +16,7 @@ beforeEach(() => {
     submarine = Ship('submarine')
     destroyer = Ship('destroyer')
     incorrect = Ship('kjsdfkj')
-    Gameboard.resetGameboard()
+    Gameboard().resetGameboard()
 })
 describe('ship is correct', () => {
     
@@ -99,15 +99,15 @@ describe('Player is created correctly', () => {
     })
 })
 
-describe('Gameboard is created correctly', () => {
-    test('Gameboard length is correct', () => {
-        expect(Gameboard.getGameboard().length).toBe(10)
-        expect(Gameboard.getGameboard()[0].length).toBe(10)
+describe('Gameboard() is created correctly', () => {
+    test('Gameboard() length is correct', () => {
+        expect(Gameboard().getGameboard().length).toBe(10)
+        expect(Gameboard().getGameboard()[0].length).toBe(10)
     })
 
     test('all ships are assigned positions', () => {
         let sum = 0
-        Gameboard.getGameboard().forEach( row => {
+        Gameboard().getGameboard().forEach( row => {
             for(let i=0; i< row.length; i++){
                 if(row[i] === -1) sum += 1
             }
@@ -116,33 +116,34 @@ describe('Gameboard is created correctly', () => {
     })
 })
 
-describe('attack is received correctly: receiveAttack()', () => {
+describe('Attack is received correctly: receiveAttack()', () => {
 
     test('attack is received correctly', () => {
-        let returnValue = Gameboard.receiveAttack(5,5)
+        let returnValue = Gameboard().receiveAttack(5,5)
         expect(returnValue === 'hit' ||
-            returnValue === 'missed').toBe(true)      
+            returnValue === 'missed' || 
+            returnValue === 'occupied').toBe(true)      
     })
     test('battleship when occupied, returns correct value', () => {
         for(let i=0; i<10; i++){
             for(let j=0; j<10; j++) {
-                Gameboard.receiveAttack(i,j)
+                Gameboard().receiveAttack(i,j)
             }
         }
-        expect(Gameboard.receiveAttack(1,1)) .toBe('occupied')
-        expect(Gameboard.receiveAttack(2,7)) .toBe('occupied')
+        expect(Gameboard().receiveAttack(1,1)) .toBe('occupied')
+        expect(Gameboard().receiveAttack(2,7)) .toBe('occupied')
     })
 
 })
 
-describe('isAllShipsSunks returns correct value', () => {
+describe('isAllShipsSunks() returns correct value', () => {
     test('attack is received correctly', () => {
         for(let i=0; i<10; i++){
             for(let j=0; j<10; j++) {
-                Gameboard.receiveAttack(i,j)
+                Gameboard().receiveAttack(i,j)
             }
         }
-        expect(Gameboard.isAllShipSunk()).toBe(true)
+        expect(Gameboard().isAllShipSunk()).toBe(true)
 
     })
 

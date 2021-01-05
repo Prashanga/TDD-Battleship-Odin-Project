@@ -23,11 +23,8 @@ const Gameboard = () => {
     let patrolboat1 = Ship('patrolboat')
     let patrolboat2 = Ship('patrolboat')
 
-    let player
     let ships = [carrier, battleship, destroyer, submarine1, submarine2, patrolboat1, patrolboat2]
 
-    const setPlayer = (player) => player = player
-    const getPlayer = () => player
 
     const assignPosition = (ship,index) => {
         const direction = Math.random() 
@@ -108,15 +105,18 @@ const Gameboard = () => {
 
     const getGameboard = () => gameboard
 
+    const getShips = () => ships
+
     const receiveAttack = (x,y) => {
-        // -23 --> ship hit and -46 --> hit missed
-        if(gameboard[x][y] === -23 || gameboard[x][y] === -46) return 'occupied'
-        else if(gameboard[x][y] === -1) {
+        // -23 --> ship hit and -46 --> attack missed
+        let gameBoardValue = gameboard[x][y]
+        if(gameBoardValue === -23 || gameBoardValue === -46) return 'occupied'
+        else if(gameBoardValue === -1) {
             gameboard[x][y] = -46
             return 'missed'
         }
         else {
-            let shipHit = ships[gameboard[x][y]]
+            let shipHit = ships[gameBoardValue]
             shipHit.hit()
             gameboard[x][y] = -23
             return 'hit'
@@ -130,11 +130,10 @@ const Gameboard = () => {
 
     return {
         getGameboard,
+        getShips,
         receiveAttack,
         resetGameboard,
         isAllShipSunk,
-        setPlayer,
-        getPlayer
     }
 }
 

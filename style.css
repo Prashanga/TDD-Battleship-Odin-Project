@@ -42,3 +42,33 @@
   text-align: center;
   font-size: 1.5rem;
 }
+
+.gameboard-title {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.current-player-text {
+  height: 45px; 
+  text-align: center;
+}
+.game-progress {
+  margin-left: 20px;
+}
+
+.ship-list {
+  display: flex;
+}
+
+.ship-list-individual {
+  background-color: #a7a7a7;
+  margin: 1px 0.5px;
+  height: calc(var(--box-dimension) / 2);
+  width: calc(var(--box-dimension) / 2);
+  border: 0.01px solid rgb(102, 98, 98);
+
+}
+
+.ship-list-individual-hit {
+  background-color: red;
+}

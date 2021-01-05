@@ -6,9 +6,9 @@ const gameBoard1 = GameBoard()
 const gameBoard2 = GameBoard()
 const player1 = Player(1,'Player 1')
 const player2 = Player(2,'Computer')
+let currentPlayerDiv = document.getElementById('current-player-text')
 let currentPlayer
 let gameOver = false
-let winner = ''
 
 const fillSingleBox = (val, div, type) => {
     let stringVal = val.toString()
@@ -28,13 +28,45 @@ const fillSingleBox = (val, div, type) => {
 
 }
 
+const fillInfoShips = () => {
+    const fill = (idName, gameboard) => {
+        const ships = gameboard.getShips()
+        const gameProgressDiv = document.getElementById(idName)
+        gameProgressDiv.innerHTML = ''
+        ships.forEach( ship => {
+            let shipLength = ship.getLength()
+            let hits = ship.getHits()
+            let indivShip = document.createElement('div')
+            indivShip.className = 'ship-list'
+
+            for(let i=0; i<shipLength; i++) {
+                let div = document.createElement('div')
+                div.className = 'ship-list-individual'
+                if(hits > 0) div.classList.add('ship-list-individual-hit')
+                hits -= 1
+                indivShip.appendChild(div)
+            }
+            gameProgressDiv.appendChild(indivShip)
+        })
+    }
+
+    fill('gb1-progress', gameBoard1)
+    fill('gb2-progress' , gameBoard2)
+}
+
+const changeCurrentPlayer = () => {
+    if(currentPlayer === player1) currentPlayer = player2
+    else currentPlayer = player1
+    currentPlayerDiv.innerHTML = `<h3> Current Player: ${currentPlayer.getName()}</h3>`
+}
+
 const makePlayerMove = (event) => {
     if(currentPlayer !== player1 || gameOver) return
     const row = event.target.getAttribute('row')
     const column = event.target.getAttribute('column')
     const valueBeforeAttack = gameBoard1.getGameboard()[row][column]
     const attack = gameBoard1.receiveAttack(row,column)
-    
+
     if(attack === 'occupied') return
     if(attack === 'missed') {
         fillSingleBox(valueBeforeAttack, event.target, 'miss')
@@ -44,7 +76,7 @@ const makePlayerMove = (event) => {
     }
     checkGameOver()
     if(!gameOver) {
-        currentPlayer = player2
+        changeCurrentPlayer()
         makeComputerMove()  
     }
 }
@@ -54,7 +86,7 @@ const makeComputerMove = () => {
     const move = () => {    
         if(currentPlayer !== player2 || gameOver) return
         let isLooping = true
-
+        
         while(isLooping) {
             let testY = Math.floor(Math.random() * 10)
             let testX = Math.floor(Math.random() * 10)
@@ -72,7 +104,7 @@ const makeComputerMove = () => {
             }
         }
         checkGameOver()
-        if(!gameOver) currentPlayer = player1
+        if(!gameOver) changeCurrentPlayer()
     }
     
     window.setTimeout(move, 00)
@@ -101,33 +133,29 @@ const createBoards = () => {
             }
         }
     }
-
     create10RowCols(gameBoard1Div, gameBoard1,'gb1')
     create10RowCols(gameBoard2Div, gameBoard2, 'gb2')
-
 }
 
 const checkGameOver = () => {
     let gameboard
-
     if(currentPlayer === player1) gameboard = gameBoard1
     else if(currentPlayer === player2) gameboard = gameBoard2
-
     if(gameboard.isAllShipSunk()) {
         gameOver = true
         winner = currentPlayer
         console.log("WINNER: ", currentPlayer.getName())
     }
+    fillInfoShips()
+    currentPlayerDiv.innerHTML = `<h3> Winner: ${currentPlayer.getName()}</h3>`
 }
 
 const GamePlay = (() => {
-    createBoards()
-    gameBoard1.setPlayer(player1)
-    gameBoard2.setPlayer(player2)
-
     if(Math.random() < 0.5) currentPlayer = player1
     else currentPlayer = player2
-    console.log(currentPlayer.getName())
+    changeCurrentPlayer()
+    createBoards()
+    fillInfoShips()
     if(currentPlayer === player2) makeComputerMove()
 })()
 

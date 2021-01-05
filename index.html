@@ -12,94 +12,31 @@
     </header>
     <main>    
         
-        <div class="game-content">
-
-            <div class="game-board" id="game-board-1"> </div>
-            <div class="game-board" id="game-board-2"> </div>
-            <!-- <div class="game-board" id="game-board-3"> </div>
-            <div class="game-board" id="game-board-4"> </div> -->
-                 <!--
-                <div id="gb1-row1" class="row row-1">
-                    <div id='gb1-r1-c1' class="box"></div>
-                    <div id='gb1-r1-c2' class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div id=10 class="box"></div>
-                   
-                </div>
-                <div id="gb1-row2" class="row row-2">
-                    <div id='gb1-r2-c1' class="box"></div>
-                    <div id='gb1-r2-c2' class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                </div>
-                <div id=3 class="row row-3"></div>
-                <div id=4 class="row row-4"></div>
-                <div id=5 class="row row-5"></div>
-                <div id=6 class="row row-6"></div>
-                <div id=7 class="row row-7"></div>
-                <div id=8 class="row row-8"></div>
-                <div id=9 class="row row-9"></div>
-                <div id=10 class="row row-10"></div>
-                
-                 
-            </div> -->
-        
-            <!-- <div class="game-board" id="game-board-2">
-                
-                <div id="gb2-row1" class="row row-1">
-                    <div id="gb2-r1-c1" class="box"></div>
-                    <div id="gb2-r1-c2" class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                   
-                </div>
-                <div id="gb2-row2" class="row row-2">
-                    <div id="gb2-r2-c1" class="box"></div>
-                    <div id="gb2-r2-c2" class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                </div>
-                <div id=3 class="row row-3"></div>
-                <div id=4 class="row row-4"></div>
-                <div id=5 class="row row-5"></div>
-                <div id=6 class="row row-6"></div>
-                <div id=7 class="row row-7"></div>
-                <div id=8 class="row row-8"></div>
-                <div id=9 class="row row-9"></div>
-                <div id=10 class="row row-10"></div>
-                
-              
-            </div> -->
+        <div id="current-player-text" class="current-player-text">
         </div>
-        
-            <!-- <button type="button" class="reset-button" onclick="resetGame()">Reset</button>
-            
-            <button type="button" class="restart-button" onclick="restartGame()">Restart</button> -->
-        </main>
+        <div class="game-content">
+                
+            <div>
+                <div id="gb1-title" class="gameboard-title">
+                    Computer's Battleship
+                </div>
+                <div class="game-board" id="game-board-1"> </div>
+                <div id="gb1-progress" class="game-progress">
+                    <!-- <div class="ship-list" id="gb1-ship-lists"></div> -->
+                </div>
+            </div>
+            <div>
+                <div  id="gb2-title" class="gameboard-title">
+                    Player's Battleship
+                </div>
+                <div class="game-board" id="game-board-2"> </div>
+                <div id="gb2-progress" class="game-progress">
+                    <!-- <div class="ship-list" id="gb2-ship-lists"></div> -->
+                </div>
+            </div>
+        </div>
+
+    </main>
 
 </body>
 <script src="index.js"></script>
