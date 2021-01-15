@@ -1,8 +1,7 @@
 const Ship = (typeOfShip) => {
     let length
     let hits = 0
-    // 0 = not Hit, 1 = Hit
-    
+
     switch(typeOfShip) {
         case 'carrier':
             length = 5
@@ -24,16 +23,13 @@ const Ship = (typeOfShip) => {
             break
     }
 
-
     const getLength = () => length
-
 
     const hit = () => {
         if( hits >= length) throw new Error('Ship already sunk')
         else hits += 1
     }
         
-    
     const isSunk = () => {
         if(hits === length) return true
         else return false
@@ -48,6 +44,5 @@ const Ship = (typeOfShip) => {
         isSunk
     }
 }
-
 
 module.exports = Ship

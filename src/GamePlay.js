@@ -4,7 +4,7 @@ const { shipColors } = require('../utils/shipColors')
 
 const gameBoard1 = GameBoard()
 const gameBoard2 = GameBoard()
-const player1 = Player(1,'Player 1')
+const player1 = Player(1,'Player')
 const player2 = Player(2,'Computer')
 let currentPlayerDiv = document.getElementById('current-player-text')
 let currentPlayer
@@ -68,7 +68,7 @@ const makePlayerMove = (event) => {
     const attack = gameBoard1.receiveAttack(row,column)
 
     if(attack === 'occupied') return
-    if(attack === 'missed') {
+    else if(attack === 'missed') {
         fillSingleBox(valueBeforeAttack, event.target, 'miss')
     }
     else if(attack === 'hit') {
@@ -107,7 +107,7 @@ const makeComputerMove = () => {
         if(!gameOver) changeCurrentPlayer()
     }
     
-    window.setTimeout(move, 00)
+    window.setTimeout(move, 1000)
 }
 
 const createBoards = () => {
@@ -144,7 +144,6 @@ const checkGameOver = () => {
     if(gameboard.isAllShipSunk()) {
         gameOver = true
         winner = currentPlayer
-        console.log("WINNER: ", currentPlayer.getName())
     }
     fillInfoShips()
     currentPlayerDiv.innerHTML = `<h3> Winner: ${currentPlayer.getName()}</h3>`
